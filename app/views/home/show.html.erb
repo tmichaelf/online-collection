@@ -1,0 +1,16 @@
+<section class="hero">
+  <h1>Big box PC games, preserved box by box</h1>
+  <p>An archive of big box PC game titles, with every side of the box scanned.</p>
+  <%= link_to "Browse all titles", titles_path, class: "button" %>
+</section>
+
+<% if @demo_collector %>
+  <section>
+    <h2><%= link_to "#{@demo_collector.username}'s collection", collector_path(@demo_collector) %></h2>
+    <div class="title-grid">
+      <% @collection_items.each do |item| %>
+        <%= render TitleCardComponent.new(title: item.title, condition: item.condition) %>
+      <% end %>
+    </div>
+  </section>
+<% end %>
