@@ -1,0 +1,14 @@
+<% content_for :title, "#{@collector.username}'s collection" %>
+
+<h1><%= @collector.username %>'s collection</h1>
+<p><%= pluralize @collection_items.size, "title" %></p>
+
+<div class="title-grid">
+  <% @collection_items.each do |item| %>
+    <%= render TitleCardComponent.new(title: item.title, condition: item.condition) %>
+  <% end %>
+</div>
+
+<% if @collection_items.empty? %>
+  <p class="empty">Nothing in this collection yet.</p>
+<% end %>

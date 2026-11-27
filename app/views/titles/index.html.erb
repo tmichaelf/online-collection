@@ -1,0 +1,11 @@
+<% content_for :title, "Titles" %>
+
+<h1>Titles</h1>
+
+<div class="title-grid">
+  <%= render TitleCardComponent.with_collection(@titles) %>
+</div>
+
+<% if @titles.empty? %>
+  <p class="empty">No titles yet.</p>
+<% end %>

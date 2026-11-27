@@ -1,0 +1,37 @@
+<% content_for :title, @title.name %>
+
+<article class="title-detail">
+  <h1><%= @title.name %></h1>
+
+  <dl class="facts">
+    <% { "Publisher" => @title.publisher, "Developer" => @title.developer, "Year" => @title.release_year, "Genre" => @title.genre, "Platform" => @title.platform }.compact_blank.each do |label, value| %>
+      <dt><%= label %></dt>
+      <dd><%= value %></dd>
+    <% end %>
+  </dl>
+
+  <% if @title.description.present? %>
+    <%= simple_format @title.description %>
+  <% end %>
+
+  <% if authenticated? %>
+    <section class="collection-controls">
+      <% if @collection_item %>
+        <p>In your collection: <%= render ConditionBadgeComponent.new(condition: @collection_item.condition) %></p>
+        <%= form_with model: @collection_item do |form| %>
+          <%= form.label :condition %>
+          <%= form.select :condition, ConditionBadgeComponent.options %>
+          <%= form.submit "Update" %>
+        <% end %>
+        <%= button_to "Remove from my collection", @collection_item, method: :delete, class: "button-link" %>
+      <% else %>
+        <%= form_with model: CollectionItem.new(title: @title) do |form| %>
+          <%= form.hidden_field :title_id %>
+          <%= form.label :condition %>
+          <%= form.select :condition, ConditionBadgeComponent.options, selected: "complete" %>
+          <%= form.submit "Add to my collection" %>
+        <% end %>
+      <% end %>
+    </section>
+  <% end %>
+</article>

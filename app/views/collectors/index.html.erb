@@ -1,0 +1,9 @@
+<% content_for :title, "Collectors" %>
+
+<h1>Collectors</h1>
+
+<ul class="collector-list">
+  <% @collectors.each do |collector| %>
+    <li><%= link_to collector.username, collector_path(collector) %></li>
+  <% end %>
+</ul>
