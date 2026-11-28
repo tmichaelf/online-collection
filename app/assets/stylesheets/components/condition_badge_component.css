@@ -1,0 +1,21 @@
+/* ConditionBadgeComponent: a small engraved tag. Sealed boxes glow. */
+.badge {
+  display: inline-block;
+  padding: 0.1rem 0.55rem;
+  border: 1px solid var(--color-border-bronze);
+  border-radius: 2px;
+  font-family: var(--font-engraved);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bronze-300);
+  background: rgb(201 163 106 / 0.08);
+}
+.badge--sealed {
+  border-color: var(--holo-300);
+  color: var(--holo-200);
+  background: rgb(59 154 224 / 0.16);
+  box-shadow: 0 0 12px var(--holo-glow);
+}
+.badge--incomplete, .badge--box-only { color: var(--color-muted); border-color: var(--stone-600); background: none; }

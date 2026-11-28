@@ -1,0 +1,11 @@
+/* FlashComponent */
+.flash {
+  margin-bottom: 1.5rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid rgb(103 189 245 / 0.4);
+  border-left: 3px solid var(--holo-300);
+  border-radius: var(--radius);
+  background: rgb(59 154 224 / 0.1);
+  box-shadow: 0 0 24px -10px var(--holo-glow);
+}
+.flash--alert { border-color: rgb(255 138 115 / 0.5); border-left-color: var(--ember-400); background: rgb(255 138 115 / 0.08); box-shadow: none; }

@@ -1,0 +1,51 @@
+/*
+ * Home: the entrance to the hall. Two walls of glowing record slots recede into the dark
+ * on either side of the heading.
+ */
+.hero {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+  margin: -0.5rem 0 3rem;
+  padding: 4.5rem 1rem 4rem;
+  overflow: hidden;
+  text-align: center;
+  border: 1px solid var(--color-border-bronze);
+  border-radius: 50% 50% var(--radius) var(--radius) / 5.5rem 5.5rem var(--radius) var(--radius);
+  background:
+    radial-gradient(ellipse 50% 60% at 50% 0%, rgb(103 189 245 / 0.22), transparent 70%),
+    linear-gradient(180deg, var(--stone-850), var(--stone-950));
+  box-shadow: 0 0 0 6px rgb(6 8 11 / 0.8), 0 0 0 7px rgb(168 132 79 / 0.25), 0 30px 60px -30px rgb(0 0 0 / 0.9);
+}
+
+.hero > * { position: relative; z-index: 1; max-width: 40rem; }
+.hero h1 { margin: 0; font-size: clamp(1.9rem, 1.2rem + 3vw, 3.2rem); }
+.hero h1::after { margin-inline: auto; background: linear-gradient(90deg, transparent, var(--bronze-400), transparent); }
+.hero p:not(.eyebrow) { margin: 0 0 0.75rem; color: var(--color-muted); font-size: 1.1rem; }
+
+.hero__stacks { position: absolute; inset: 0; z-index: 0; max-width: none; perspective: 500px; pointer-events: none; }
+.hero__stacks::before, .hero__stacks::after {
+  content: "";
+  position: absolute;
+  top: 12%;
+  bottom: 12%;
+  width: 34%;
+  background:
+    repeating-linear-gradient(180deg, transparent 0 22px, rgb(201 163 106 / 0.55) 22px 24px),
+    repeating-linear-gradient(90deg, rgb(103 189 245 / 0.32) 0 6px, transparent 6px 9px, rgb(103 189 245 / 0.14) 9px 13px, transparent 13px 18px);
+  mask-image: linear-gradient(90deg, black, transparent);
+  animation: hero-stacks-glow 9s ease-in-out infinite alternate;
+}
+.hero__stacks::before { left: 0; transform-origin: left center; transform: rotateY(62deg); }
+.hero__stacks::after { right: 0; transform-origin: right center; transform: rotateY(-62deg); mask-image: linear-gradient(270deg, black, transparent); animation-delay: -4.5s; }
+
+@keyframes hero-stacks-glow {
+  from { opacity: 0.55; }
+  to { opacity: 1; }
+}
+
+@media (max-width: 640px) {
+  .hero { padding: 3.5rem 1rem 3rem; border-radius: 50% 50% var(--radius) var(--radius) / 3rem 3rem var(--radius) var(--radius); }
+  .hero__stacks::before, .hero__stacks::after { width: 22%; opacity: 0.6; }
+}

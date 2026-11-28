@@ -1,0 +1,30 @@
+/* Title page: the 3D viewer on the left, the catalogue entry on the right. */
+.title-detail__layout { display: grid; gap: 2rem; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); align-items: start; }
+@media (max-width: 760px) { .title-detail__layout { grid-template-columns: minmax(0, 1fr); } }
+
+.title-detail__info {
+  padding: 1.25rem;
+  border: 1px solid var(--color-border);
+  border-top-color: var(--color-border-bronze);
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, var(--color-surface-raised), var(--color-surface));
+  box-shadow: var(--shadow-panel);
+}
+.title-detail__info > :last-child { margin-bottom: 0; }
+
+/* Collectors */
+.collector-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(220px, 100%), 1fr)); gap: 0.75rem; padding: 0; list-style: none; }
+.collector-list a {
+  display: block;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--color-border);
+  border-left: 3px solid var(--bronze-500);
+  border-radius: var(--radius);
+  background: var(--stone-850);
+  font-family: var(--font-engraved);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.collector-list a:hover { border-color: rgb(159 214 255 / 0.5); border-left-color: var(--holo-300); box-shadow: 0 0 22px -6px var(--holo-glow); }
