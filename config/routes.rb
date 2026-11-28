@@ -6,7 +6,8 @@ Rails.application.routes.draw do
   resource :registration, only: %i[ new create ]
 
   resources :titles, only: %i[ index show ]
-  resources :collectors, only: %i[ index show ], param: :username
+  # The collectors directory (index) is hidden for now; add :index back to restore it.
+  resources :collectors, only: :show, param: :username
   resources :collection_items, only: %i[ create update destroy ]
 
   namespace :admin do
