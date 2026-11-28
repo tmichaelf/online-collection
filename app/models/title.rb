@@ -1,5 +1,5 @@
 class Title < ApplicationRecord
-  include BoxFaces
+  include BoxFaces, Searchable
 
   has_many :collection_items, dependent: :restrict_with_error
   has_many :collectors, through: :collection_items, source: :user

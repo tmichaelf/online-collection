@@ -1,0 +1,36 @@
+<%= form_with url: titles_path, method: :get, class: "title-filters", role: "search",
+      data: { controller: "autosubmit", action: "submit->autosubmit#omitBlankFields", turbo_frame: "titles", turbo_action: "advance" } do |form| %>
+  <div class="title-filters__search">
+    <%= form.label :q, "Search titles", class: "visually-hidden" %>
+    <%= form.search_field :q, value: filters[:q], placeholder: "Search by name, publisher, developer or genre",
+          autocomplete: "off", data: { action: "input->autosubmit#submitLater" } %>
+  </div>
+
+  <div class="title-filters__selects">
+    <div class="field">
+      <%= form.label :publisher %>
+      <%= form.select :publisher, options[:publishers], { include_blank: "Any publisher", selected: filters[:publisher] }, data: { action: "autosubmit#submit" } %>
+    </div>
+    <div class="field">
+      <%= form.label :genre %>
+      <%= form.select :genre, options[:genres], { include_blank: "Any genre", selected: filters[:genre] }, data: { action: "autosubmit#submit" } %>
+    </div>
+    <div class="field">
+      <%= form.label :platform %>
+      <%= form.select :platform, options[:platforms], { include_blank: "Any platform", selected: filters[:platform] }, data: { action: "autosubmit#submit" } %>
+    </div>
+    <div class="field">
+      <%= form.label :decade %>
+      <%= form.select :decade, decade_options, { include_blank: "Any year", selected: filters[:decade] }, data: { action: "autosubmit#submit" } %>
+    </div>
+    <div class="field">
+      <%= form.label :sort, "Sort by" %>
+      <%= form.select :sort, sort_options, { include_blank: "Best match", selected: filters[:sort] }, data: { action: "autosubmit#submit" } %>
+    </div>
+  </div>
+
+  <div class="title-filters__actions">
+    <%= form.submit "Search", class: "button", data: { autosubmit_target: "button" } %>
+    <%= link_to "Clear filters", titles_path, data: { turbo_frame: "_top" } %>
+  </div>
+<% end %>
