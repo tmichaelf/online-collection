@@ -3,6 +3,8 @@
 <article class="title-detail">
   <h1><%= @title.name %></h1>
 
+  <%= render BoxFacesComponent.new(title: @title) %>
+
   <dl class="facts">
     <% { "Publisher" => @title.publisher, "Developer" => @title.developer, "Year" => @title.release_year, "Genre" => @title.genre, "Platform" => @title.platform }.compact_blank.each do |label, value| %>
       <dt><%= label %></dt>

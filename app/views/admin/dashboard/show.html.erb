@@ -1,6 +1,9 @@
 <% content_for :title, "Admin" %>
 
-<h1>Admin</h1>
+<div class="page-header">
+  <h1>Admin</h1>
+  <%= link_to "Manage titles", admin_titles_path, class: "button" %>
+</div>
 
 <dl class="facts">
   <dt>Titles</dt>
@@ -9,4 +12,16 @@
   <dd><%= @user_count %></dd>
 </dl>
 
-<p>Title management and box uploads arrive in the next step.</p>
+<h2>Titles missing photos</h2>
+<% if @titles_missing_photos.any? %>
+  <ul>
+    <% @titles_missing_photos.each do |title| %>
+      <li>
+        <%= link_to title.name, edit_admin_title_path(title) %>
+        <span class="muted">missing <%= title.missing_faces.map { |face| Title.face_label(face).downcase }.to_sentence %></span>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p class="empty">Every title has all six photos.</p>
+<% end %>

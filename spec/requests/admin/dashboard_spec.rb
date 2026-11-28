@@ -17,4 +17,12 @@ RSpec.describe "Admin dashboard", type: :request do
     get admin_root_path
     expect(response).to have_http_status(:ok)
   end
+
+  it "lists titles that are missing photos" do
+    create(:title, name: "SimCity 2000")
+    sign_in_as create(:user, :admin)
+    get admin_root_path
+    expect(response.body).to include("SimCity 2000")
+    expect(response.body).to include("missing front, back, top, bottom, left side, and right side")
+  end
 end

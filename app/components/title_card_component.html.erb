@@ -1,6 +1,6 @@
 <article class="title-card">
   <%= link_to title, class: "title-card__link" do %>
-    <div class="title-card__box" aria-hidden="true"><%= title.name.first %></div>
+    <%= render BoxCoverComponent.new(title: title) %>
     <h3 class="title-card__name"><%= title.name %></h3>
   <% end %>
   <% if byline.present? %>
