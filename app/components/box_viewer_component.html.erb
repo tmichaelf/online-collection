@@ -1,0 +1,28 @@
+<section class="box-viewer" aria-label="3D view of the <%= title.name %> box"
+         data-controller="box-viewer"
+         data-box-viewer-textures-value="<%= textures.to_json %>"
+         data-box-viewer-dimensions-value="<%= dimensions.to_json %>"
+         data-action="fullscreenchange->box-viewer#fullscreenChanged keydown->box-viewer#keydown">
+  <div class="box-viewer__stage" data-box-viewer-target="stage" tabindex="0"
+       aria-label="Drag to rotate, scroll or pinch to zoom, right-drag or two-finger drag to pan">
+    <%= render BoxCoverComponent.new(title: title, variant: :display) %>
+    <p class="box-viewer__status" data-box-viewer-target="status" hidden></p>
+  </div>
+
+  <div class="box-viewer__toolbar" data-box-viewer-target="toolbar" hidden>
+    <div class="box-viewer__group" role="group" aria-label="Zoom">
+      <button type="button" data-action="box-viewer#zoomIn" aria-label="Zoom in">+</button>
+      <button type="button" data-action="box-viewer#zoomOut" aria-label="Zoom out">−</button>
+      <button type="button" data-action="box-viewer#reset">Reset</button>
+    </div>
+    <div class="box-viewer__group" role="group" aria-label="Show side">
+      <% views.each do |face, label| %>
+        <button type="button" data-action="box-viewer#show" data-box-viewer-face-param="<%= face %>"><%= label %></button>
+      <% end %>
+    </div>
+    <div class="box-viewer__group">
+      <button type="button" data-action="box-viewer#toggleSpin" data-box-viewer-target="spinButton" aria-pressed="false">Spin</button>
+      <button type="button" data-action="box-viewer#toggleFullscreen" data-box-viewer-target="fullscreenButton">Full screen</button>
+    </div>
+  </div>
+</section>

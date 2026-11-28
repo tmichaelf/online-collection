@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_28_001319) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_28_025041) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -77,10 +77,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_28_001319) do
     t.integer "box_width_mm"
     t.integer "box_height_mm"
     t.integer "box_depth_mm"
+    t.virtual "searchable", type: :tsvector, as: "(((setweight(to_tsvector('simple'::regconfig, (COALESCE(name, ''::character varying))::text), 'A'::\"char\") || setweight(to_tsvector('simple'::regconfig, (((COALESCE(publisher, ''::character varying))::text || ' '::text) || (COALESCE(developer, ''::character varying))::text)), 'B'::\"char\")) || setweight(to_tsvector('simple'::regconfig, (((COALESCE(genre, ''::character varying))::text || ' '::text) || (COALESCE(platform, ''::character varying))::text)), 'C'::\"char\")) || setweight(to_tsvector('simple'::regconfig, COALESCE(description, ''::text)), 'D'::\"char\"))", stored: true
     t.index ["genre"], name: "index_titles_on_genre"
     t.index ["name"], name: "index_titles_on_name"
+    t.index ["platform"], name: "index_titles_on_platform"
     t.index ["publisher"], name: "index_titles_on_publisher"
     t.index ["release_year"], name: "index_titles_on_release_year"
+    t.index ["searchable"], name: "index_titles_on_searchable", using: :gin
   end
 
   create_table "users", force: :cascade do |t|

@@ -1,0 +1,9 @@
+<nav class="pagination" aria-label="Pages">
+  <% if pagination.previous_number %>
+    <%= link_to "Previous", page_path(pagination.previous_number), rel: "prev", data: { turbo_frame: "titles", turbo_action: "advance" } %>
+  <% end %>
+  <span>Page <%= pagination.number %> of <%= pagination.total_pages %></span>
+  <% if pagination.next_number %>
+    <%= link_to "Next", page_path(pagination.next_number), rel: "next", data: { turbo_frame: "titles", turbo_action: "advance" } %>
+  <% end %>
+</nav>

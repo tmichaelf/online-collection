@@ -3,18 +3,24 @@
 <article class="title-detail">
   <h1><%= @title.name %></h1>
 
-  <%= render BoxFacesComponent.new(title: @title) %>
+  <div class="title-detail__layout">
+    <%= render BoxViewerComponent.new(title: @title) %>
 
-  <dl class="facts">
-    <% { "Publisher" => @title.publisher, "Developer" => @title.developer, "Year" => @title.release_year, "Genre" => @title.genre, "Platform" => @title.platform }.compact_blank.each do |label, value| %>
-      <dt><%= label %></dt>
-      <dd><%= value %></dd>
-    <% end %>
-  </dl>
+    <div class="title-detail__info">
+      <dl class="facts">
+        <% { "Publisher" => @title.publisher, "Developer" => @title.developer, "Year" => @title.release_year, "Genre" => @title.genre, "Platform" => @title.platform }.compact_blank.each do |label, value| %>
+          <dt><%= label %></dt>
+          <dd><%= value %></dd>
+        <% end %>
+      </dl>
 
-  <% if @title.description.present? %>
-    <%= simple_format @title.description %>
-  <% end %>
+      <% if @title.description.present? %>
+        <%= simple_format @title.description %>
+      <% end %>
+
+      <%= render BoxFacesComponent.new(title: @title) %>
+    </div>
+  </div>
 
   <% if authenticated? %>
     <section class="collection-controls">

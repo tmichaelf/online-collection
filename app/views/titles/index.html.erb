@@ -2,10 +2,18 @@
 
 <h1>Titles</h1>
 
-<div class="title-grid">
-  <%= render TitleCardComponent.with_collection(@titles) %>
-</div>
+<%= render TitleFiltersComponent.new(filters: @filters, options: @filter_options) %>
 
-<% if @titles.empty? %>
-  <p class="empty">No titles yet.</p>
+<%= turbo_frame_tag "titles", target: "_top" do %>
+  <p class="result-count" aria-live="polite"><%= pluralize @pagination.total_count, "title" %></p>
+
+  <div class="title-grid">
+    <%= render TitleCardComponent.with_collection(@titles) %>
+  </div>
+
+  <% if @titles.empty? %>
+    <p class="empty"><%= @filters.any? ? "No titles match those filters." : "No titles yet." %></p>
+  <% end %>
+
+  <%= render PaginationComponent.new(pagination: @pagination, params: @filters) %>
 <% end %>
