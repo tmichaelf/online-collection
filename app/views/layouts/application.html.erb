@@ -42,7 +42,7 @@
 
     <main class="container">
       <%= render FlashComponent.new(flash: flash) %>
-      <%= yield %>
+      <%= content_for?(:content) ? yield(:content) : yield %>
     </main>
   </body>
 </html>

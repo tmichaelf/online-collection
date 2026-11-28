@@ -5,7 +5,7 @@ RSpec.describe "Managing titles", type: :system do
     sign_in_as create(:user, :admin)
 
     click_on "Admin"
-    click_on "Manage titles"
+    within(".admin-nav") { click_on "Titles" }
     click_on "New title"
     fill_in "Name", with: "Day of the Tentacle"
     fill_in "Publisher", with: "LucasArts"

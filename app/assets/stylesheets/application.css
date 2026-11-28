@@ -198,3 +198,11 @@ a { color: var(--color-accent); }
 .box-viewer__toolbar button:hover { border-color: var(--color-accent); }
 .box-viewer__toolbar button[aria-pressed="true"] { background: var(--color-accent); border-color: var(--color-accent); color: #fff; }
 .box-viewer__toolbar[hidden] { display: none; }
+
+/* Admin */
+.admin-nav { display: flex; gap: 1rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid var(--color-border); }
+.admin-nav a { text-decoration: none; }
+.admin-nav a[aria-current="page"] { font-weight: 700; text-decoration: underline; }
+.admin-table__actions { white-space: nowrap; }
+.admin-table__actions > * { display: inline; margin-right: 0.75rem; }
+.checkbox { display: flex; gap: 0.5rem; align-items: center; }
