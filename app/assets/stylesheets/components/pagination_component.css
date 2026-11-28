@@ -1,0 +1,21 @@
+/* PaginationComponent */
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2.5rem;
+  font-family: var(--font-engraved);
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+.pagination a {
+  padding: 0.4rem 0.9rem;
+  border: 1px solid var(--color-border-bronze);
+  border-radius: var(--radius);
+  text-decoration: none;
+}
+.pagination a:hover { border-color: var(--holo-300); box-shadow: 0 0 14px var(--holo-glow); }

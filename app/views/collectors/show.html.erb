@@ -1,7 +1,7 @@
 <% content_for :title, "#{@collector.username}'s collection" %>
 
 <h1><%= @collector.username %>'s collection</h1>
-<p><%= pluralize @collection_items.size, "title" %></p>
+<p class="result-count"><%= pluralize @collection_items.size, "title" %></p>
 
 <div class="title-grid">
   <% @collection_items.each do |item| %>

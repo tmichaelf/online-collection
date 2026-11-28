@@ -1,0 +1,24 @@
+/* BoxCoverComponent: a box's front photo, or a glowing initial where there's no photo yet. */
+.box-cover {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: contain;
+  border-radius: 2px;
+  background: radial-gradient(ellipse at 50% 85%, rgb(103 189 245 / 0.14), transparent 70%), var(--stone-950);
+}
+
+.box-cover--placeholder {
+  display: grid;
+  place-items: center;
+  font-family: var(--font-engraved);
+  font-size: 2.75rem;
+  font-weight: 700;
+  color: var(--holo-300);
+  text-shadow: 0 0 10px var(--holo-glow), 0 0 28px var(--holo-glow);
+  background:
+    repeating-linear-gradient(0deg, rgb(159 214 255 / 0.05) 0 1px, transparent 1px 4px),
+    radial-gradient(ellipse at 50% 60%, rgb(103 189 245 / 0.18), transparent 65%),
+    var(--stone-950);
+  border: 1px solid rgb(103 189 245 / 0.2);
+}

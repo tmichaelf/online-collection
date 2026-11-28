@@ -1,0 +1,25 @@
+/* BoxFacesComponent: the six photos laid out as small framed plates. */
+.box-faces { display: grid; grid-template-columns: repeat(auto-fill, minmax(110px, 1fr)); gap: 0.75rem; margin: 1.5rem 0; }
+.box-faces__face { margin: 0; }
+.box-faces__face a { display: block; border-radius: 2px; }
+.box-faces__face img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: contain;
+  padding: 0.35rem;
+  background: var(--stone-950);
+  border: 1px solid var(--color-border-bronze);
+  border-radius: 2px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.box-faces__face a:hover img { border-color: var(--holo-300); box-shadow: 0 0 18px var(--holo-glow); }
+.box-faces__face figcaption {
+  margin-top: 0.35rem;
+  font-family: var(--font-engraved);
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--color-muted);
+}

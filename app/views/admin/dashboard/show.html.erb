@@ -5,11 +5,15 @@
   <%= link_to "Manage titles", admin_titles_path, class: "button" %>
 </div>
 
-<dl class="facts">
-  <dt>Titles</dt>
-  <dd><%= @title_count %></dd>
-  <dt>Collectors</dt>
-  <dd><%= @user_count %></dd>
+<dl class="stat-list">
+  <div>
+    <dt>Titles</dt>
+    <dd><%= @title_count %></dd>
+  </div>
+  <div>
+    <dt>Collectors</dt>
+    <dd><%= @user_count %></dd>
+  </div>
 </dl>
 
 <h2>Titles missing photos</h2>
