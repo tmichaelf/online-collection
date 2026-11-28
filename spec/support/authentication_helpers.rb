@@ -10,7 +10,7 @@ module AuthenticationHelpers
       visit new_session_path
       fill_in "Email address", with: user.email_address
       fill_in "Password", with: password
-      click_on "Sign in"
+      click_button "Sign in"
     end
   end
 end

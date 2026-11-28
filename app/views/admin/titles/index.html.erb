@@ -1,0 +1,33 @@
+<% content_for :title, "Manage titles" %>
+
+<div class="page-header">
+  <h1>Titles</h1>
+  <%= link_to "New title", new_admin_title_path, class: "button" %>
+</div>
+
+<table class="admin-table">
+  <thead>
+    <tr>
+      <th scope="col">Cover</th>
+      <th scope="col">Name</th>
+      <th scope="col">Publisher</th>
+      <th scope="col">Year</th>
+      <th scope="col">Photos</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @titles.each do |title| %>
+      <tr>
+        <td class="admin-table__cover"><%= render BoxCoverComponent.new(title: title) %></td>
+        <td><%= link_to title.name, edit_admin_title_path(title) %></td>
+        <td><%= title.publisher %></td>
+        <td><%= title.release_year %></td>
+        <td><%= title.attached_faces.size %> of <%= Title::FACES.size %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<% if @titles.empty? %>
+  <p class="empty">No titles yet. <%= link_to "Add the first one", new_admin_title_path %>.</p>
+<% end %>

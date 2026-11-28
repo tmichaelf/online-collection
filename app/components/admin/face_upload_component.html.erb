@@ -1,0 +1,28 @@
+<div class="face-upload<%= " face-upload--invalid" if errors.any? %>"
+     data-controller="face-upload"
+     data-face-upload-max-bytes-value="<%= Title::MAX_FILE_SIZE %>"
+     data-face-upload-types-value="<%= accept %>"
+     data-action="dragover->face-upload#dragOver dragleave->face-upload#dragLeave drop->face-upload#drop">
+  <%= form.label attribute, label, class: "face-upload__label" %>
+
+  <div class="face-upload__preview">
+    <% if saved_image? %>
+      <%= image_tag image.variant(:thumb), alt: "#{label} of the box", data: { face_upload_target: "image" } %>
+    <% else %>
+      <img alt="" hidden data-face-upload-target="image">
+      <span class="face-upload__hint" data-face-upload-target="hint">Drop a photo here or choose a file</span>
+    <% end %>
+  </div>
+
+  <%= form.file_field attribute, accept: accept, direct_upload: true, class: "face-upload__input",
+        data: { face_upload_target: "input", action: "change->face-upload#preview" } %>
+
+  <progress class="face-upload__progress" max="100" value="0" hidden data-face-upload-target="progress"></progress>
+
+  <p class="face-upload__error" data-face-upload-target="error" <%= "hidden" if errors.empty? %>><%= errors.to_sentence %></p>
+
+  <% if saved_image? %>
+    <%= link_to "Remove photo", admin_title_face_path(title, face), class: "face-upload__remove",
+          data: { turbo_method: :delete, turbo_confirm: "Remove the #{label.downcase} photo?" } %>
+  <% end %>
+</div>
