@@ -5,35 +5,37 @@
   <%= link_to "New title", new_admin_title_path, class: "button" %>
 </div>
 
-<table class="admin-table">
-  <thead>
-    <tr>
-      <th scope="col">Cover</th>
-      <th scope="col">Name</th>
-      <th scope="col">Publisher</th>
-      <th scope="col">Year</th>
-      <th scope="col">Photos</th>
-      <th scope="col"><span class="visually-hidden">Actions</span></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @titles.each do |title| %>
+<div class="admin-table-wrap">
+  <table class="admin-table">
+    <thead>
       <tr>
-        <td class="admin-table__cover"><%= render BoxCoverComponent.new(title: title) %></td>
-        <td><%= link_to title.name, edit_admin_title_path(title) %></td>
-        <td><%= title.publisher %></td>
-        <td><%= title.release_year %></td>
-        <td><%= title.attached_faces.size %> of <%= Title::FACES.size %></td>
-        <td class="admin-table__actions">
-          <%= link_to "Edit", edit_admin_title_path(title) %>
-          <%= link_to "View", title %>
-          <%= button_to "Delete", admin_title_path(title), method: :delete, class: "button-link",
-                form: { data: { turbo_confirm: "Delete #{title.name} and all its photos?" } } %>
-        </td>
+        <th scope="col">Cover</th>
+        <th scope="col">Name</th>
+        <th scope="col">Publisher</th>
+        <th scope="col">Year</th>
+        <th scope="col">Photos</th>
+        <th scope="col"><span class="visually-hidden">Actions</span></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @titles.each do |title| %>
+        <tr>
+          <td class="admin-table__cover"><%= render BoxCoverComponent.new(title: title) %></td>
+          <td><%= link_to title.name, edit_admin_title_path(title) %></td>
+          <td><%= title.publisher %></td>
+          <td><%= title.release_year %></td>
+          <td><%= title.attached_faces.size %> of <%= Title::FACES.size %></td>
+          <td class="admin-table__actions">
+            <%= link_to "Edit", edit_admin_title_path(title) %>
+            <%= link_to "View", title %>
+            <%= button_to "Delete", admin_title_path(title), method: :delete, class: "button-link",
+                  form: { data: { turbo_confirm: "Delete #{title.name} and all its photos?" } } %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
 <% if @titles.empty? %>
   <p class="empty">No titles yet. <%= link_to "Add the first one", new_admin_title_path %>.</p>

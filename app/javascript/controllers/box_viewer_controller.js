@@ -15,7 +15,10 @@ const HOME_DIRECTION = [ 0.45, 0.25, 1 ]
 // BoxGeometry orders its faces +x, -x, +y, -y, +z, -z.
 const FACE_ORDER = [ "right", "left", "top", "bottom", "front", "back" ]
 
-const BLANK_FACE_COLOR = 0x3a3632
+const BLANK_FACE_COLOR = 0x1c2733
+
+// A cool backlight that gives the box the archive's holographic edge without tinting the photos head-on.
+const RIM_LIGHT_COLOR = 0x7cc4ff
 
 // Renders a title's box in 3D with three.js. Three is only loaded on pages that have a viewer.
 export default class extends Controller {
@@ -108,6 +111,9 @@ export default class extends Controller {
     const keyLight = new THREE.DirectionalLight(0xffffff, 1.4)
     keyLight.position.set(2, 3, 4)
     this.scene.add(keyLight)
+    const rimLight = new THREE.DirectionalLight(RIM_LIGHT_COLOR, 1.6)
+    rimLight.position.set(-3, 1.5, -4)
+    this.scene.add(rimLight)
 
     this.materials = FACE_ORDER.map(() => new THREE.MeshStandardMaterial({ color: BLANK_FACE_COLOR, roughness: 0.85 }))
     this.geometry = new THREE.BoxGeometry(size.x, size.y, size.z)

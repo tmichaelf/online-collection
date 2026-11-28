@@ -1,0 +1,87 @@
+/*
+ * TitleCardComponent: each title is a record standing on a bronze shelf.
+ * Hovering or focusing a record lights it from within, like a stored hologram waking up.
+ */
+.title-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(160px, 100%), 1fr));
+  gap: 2rem 1.25rem;
+}
+@media (max-width: 480px) { .title-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem 0.75rem; } }
+
+.title-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 0.6rem 0.6rem 0.9rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius) var(--radius) 0 0;
+  background: linear-gradient(180deg, var(--stone-800), var(--stone-850) 60%, var(--stone-900));
+  box-shadow: var(--shadow-panel);
+  transition: transform 0.3s ease, border-color 0.3s, box-shadow 0.3s;
+}
+
+/* The shelf the record stands on. */
+.title-card::after {
+  content: "";
+  position: absolute;
+  inset: auto -0.6rem -7px;
+  height: 6px;
+  border-radius: 1px;
+  background: linear-gradient(180deg, var(--bronze-300), var(--bronze-500) 40%, var(--bronze-700));
+  box-shadow: 0 6px 14px -4px rgb(0 0 0 / 0.9), 0 -1px 10px -2px rgb(201 163 106 / 0.35);
+}
+
+.title-card__link { color: inherit; text-decoration: none; }
+.title-card__link:hover { color: inherit; text-shadow: none; }
+.title-card__link:focus-visible { box-shadow: none; }
+
+.title-card__cover { position: relative; display: block; overflow: hidden; border-radius: 2px; }
+/* A cool sheen and scanlines that fade in over the cover. */
+.title-card__cover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(115deg, transparent 30%, rgb(205 234 255 / 0.28) 48%, transparent 62%) -150% 0 / 250% 100% no-repeat,
+    repeating-linear-gradient(0deg, rgb(159 214 255 / 0.08) 0 1px, transparent 1px 3px),
+    linear-gradient(0deg, rgb(59 154 224 / 0.25), transparent 55%);
+  transition: opacity 0.3s;
+}
+
+.title-card:hover, .title-card:focus-within {
+  transform: translateY(-4px);
+  border-color: rgb(159 214 255 / 0.55);
+  box-shadow: 0 0 0 1px rgb(159 214 255 / 0.2), 0 0 28px -4px var(--holo-glow), 0 22px 40px -24px rgb(0 0 0 / 0.9);
+}
+.title-card:hover .title-card__cover::after, .title-card:focus-within .title-card__cover::after {
+  opacity: 1;
+  animation: title-card-sheen 1.4s ease-out;
+}
+.title-card:focus-within:has(.title-card__link:focus-visible) { box-shadow: var(--focus-ring), 0 0 28px -4px var(--holo-glow); }
+
+@keyframes title-card-sheen {
+  from { background-position: -150% 0, 0 0, 0 0; }
+  to { background-position: 150% 0, 0 0, 0 0; }
+}
+
+.title-card__record {
+  margin: 0.6rem 0 0;
+  font-family: var(--font-engraved);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: var(--holo-400);
+}
+.title-card__name {
+  margin: 0.2rem 0 0;
+  font-size: 0.95rem;
+  letter-spacing: 0.03em;
+  color: var(--bronze-200);
+  overflow-wrap: anywhere;
+}
+.title-card:hover .title-card__name { color: var(--holo-200); text-shadow: 0 0 12px var(--holo-glow); }
+.title-card__byline { margin: 0.25rem 0 0.5rem; color: var(--color-muted); font-size: 0.8rem; line-height: 1.4; }
+.title-card .badge { align-self: flex-start; margin-top: auto; }

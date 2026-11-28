@@ -1,0 +1,92 @@
+/* BoxViewerComponent: the box floats above a projector pad, lit in holographic blue. */
+.box-viewer { display: grid; gap: 0.75rem; }
+.box-viewer:fullscreen { padding: 1rem; background: var(--stone-950); grid-template-rows: 1fr auto; }
+
+.box-viewer__stage {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  touch-action: none;
+  border: 1px solid rgb(103 189 245 / 0.25);
+  border-radius: var(--radius);
+  background:
+    radial-gradient(ellipse 45% 12% at 50% 92%, rgb(159 214 255 / 0.45), transparent 70%),
+    radial-gradient(ellipse 70% 70% at 50% 70%, rgb(59 154 224 / 0.16), transparent 70%),
+    linear-gradient(180deg, var(--stone-950), #0a121b);
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.6) inset, 0 0 50px -20px var(--holo-glow), var(--shadow-panel);
+}
+.box-viewer:fullscreen .box-viewer__stage { aspect-ratio: auto; }
+
+/* Projector rings and a faint beam rising from them. */
+.box-viewer__stage::before {
+  content: "";
+  position: absolute;
+  inset: auto 25% 5%;
+  height: 9%;
+  border-radius: 50%;
+  border: 1px solid rgb(159 214 255 / 0.55);
+  box-shadow: 0 0 18px var(--holo-glow), 0 0 0 10px rgb(103 189 245 / 0.06), 0 0 0 11px rgb(103 189 245 / 0.25);
+  pointer-events: none;
+}
+.box-viewer__stage::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(0deg, rgb(159 214 255 / 0.035) 0 1px, transparent 1px 3px),
+    linear-gradient(0deg, rgb(103 189 245 / 0.08), transparent 60%);
+  mix-blend-mode: screen;
+  animation: box-viewer-flicker 7s steps(1) infinite;
+}
+
+@keyframes box-viewer-flicker {
+  0%, 100% { opacity: 1; }
+  47% { opacity: 0.75; }
+  48% { opacity: 1; }
+  83% { opacity: 0.85; }
+}
+
+.box-viewer__stage:focus-visible { box-shadow: var(--focus-ring), 0 0 50px -20px var(--holo-glow); }
+.box-viewer__canvas { position: relative; z-index: 1; display: block; width: 100%; height: 100%; cursor: grab; }
+.box-viewer__canvas:active { cursor: grabbing; }
+.box-viewer__stage .box-cover { position: relative; z-index: 1; height: 100%; aspect-ratio: auto; background: none; border: 0; }
+.box-viewer__status {
+  position: absolute;
+  z-index: 2;
+  inset: auto 0 0;
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+  background: rgb(6 8 11 / 0.88);
+  border-top: 1px solid rgb(103 189 245 / 0.25);
+  font-size: 0.875rem;
+}
+
+.box-viewer__toolbar { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; }
+.box-viewer__toolbar[hidden] { display: none; }
+.box-viewer__group { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.box-viewer__toolbar button {
+  min-width: 2.5rem;
+  min-height: 2.25rem;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--color-border-bronze);
+  border-radius: var(--radius);
+  background: var(--stone-850);
+  color: var(--bronze-200);
+  font: inherit;
+  font-family: var(--font-engraved);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s, color 0.2s;
+}
+.box-viewer__toolbar button[aria-label="Zoom in"], .box-viewer__toolbar button[aria-label="Zoom out"] { font-family: var(--font-body); font-size: 1rem; line-height: 1; }
+.box-viewer__toolbar button:hover { border-color: var(--holo-300); color: var(--holo-200); box-shadow: 0 0 14px var(--holo-glow); }
+.box-viewer__toolbar button[aria-pressed="true"] {
+  border-color: var(--holo-300);
+  background: rgb(59 154 224 / 0.22);
+  color: var(--holo-200);
+  box-shadow: 0 0 14px var(--holo-glow) inset, 0 0 14px var(--holo-glow);
+}
