@@ -36,7 +36,6 @@
       <% end %>
       <nav class="site-header__nav">
         <%= link_to "Titles", titles_path %>
-        <%= link_to "Collectors", collectors_path %>
         <% if authenticated? %>
           <%= link_to "My collection", collector_path(Current.user) %>
           <%= link_to "Admin", admin_root_path if Current.user.admin? %>

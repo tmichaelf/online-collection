@@ -16,15 +16,20 @@ RSpec.describe "Public pages", type: :request do
     expect(response.body).to include("Wing Commander")
   end
 
-  it "lists collectors and titles without signing in" do
-    get collectors_path
-    expect(response.body).to include(demo.username)
-
+  it "lists titles without signing in" do
     get titles_path
     expect(response.body).to include("Wing Commander")
 
     get title_path(item.title)
     expect(response).to have_http_status(:ok)
+  end
+
+  it "hides the collectors directory for now" do
+    get root_path
+    expect(response.body).not_to include(">Collectors<")
+
+    get "/collectors"
+    expect(response).to have_http_status(:not_found)
   end
 
   it "returns not found for an unknown collector" do
