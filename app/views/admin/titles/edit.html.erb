@@ -1,0 +1,18 @@
+<% content_for :title, "Edit #{@title.name}" %>
+
+<div class="page-header">
+  <h1><%= @title.name %></h1>
+  <%= link_to "View public page", @title %>
+</div>
+
+<%= render "form", title: @title %>
+
+<section class="danger-zone">
+  <h2>Delete title</h2>
+  <% if @title.collection_items.exists? %>
+    <p>This title is in <%= pluralize @title.collection_items.count, "collection" %>, so it can't be deleted.</p>
+  <% else %>
+    <%= button_to "Delete #{@title.name}", admin_title_path(@title), method: :delete, class: "button button--danger",
+          form: { data: { turbo_confirm: "Delete #{@title.name} and all its photos?" } } %>
+  <% end %>
+</section>

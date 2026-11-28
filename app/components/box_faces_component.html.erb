@@ -1,0 +1,8 @@
+<section class="box-faces" aria-label="Box photos">
+  <% faces.each do |label, image| %>
+    <figure class="box-faces__face">
+      <%= link_to image_tag(image.variant(:thumb), alt: "#{label} of the box", loading: "lazy"), image.variant(:display), target: "_blank", rel: "noopener" %>
+      <figcaption><%= label %></figcaption>
+    </figure>
+  <% end %>
+</section>

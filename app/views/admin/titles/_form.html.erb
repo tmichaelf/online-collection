@@ -1,0 +1,76 @@
+<%= form_with model: [ :admin, title ], class: "title-form" do |form| %>
+  <% if title.errors.any? %>
+    <div class="form__errors" role="alert">
+      <p><%= pluralize title.errors.count, "problem" %> stopped this title from saving:</p>
+      <ul>
+        <% title.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <fieldset class="title-form__details">
+    <legend>Details</legend>
+
+    <div class="field field--wide">
+      <%= form.label :name %>
+      <%= form.text_field :name, required: true %>
+    </div>
+    <div class="field">
+      <%= form.label :publisher %>
+      <%= form.text_field :publisher %>
+    </div>
+    <div class="field">
+      <%= form.label :developer %>
+      <%= form.text_field :developer %>
+    </div>
+    <div class="field">
+      <%= form.label :release_year %>
+      <%= form.number_field :release_year, min: 1970, max: 2100 %>
+    </div>
+    <div class="field">
+      <%= form.label :genre %>
+      <%= form.text_field :genre %>
+    </div>
+    <div class="field">
+      <%= form.label :platform %>
+      <%= form.text_field :platform, placeholder: "MS-DOS" %>
+    </div>
+    <div class="field field--wide">
+      <%= form.label :description %>
+      <%= form.text_area :description, rows: 4 %>
+    </div>
+  </fieldset>
+
+  <fieldset class="title-form__faces">
+    <legend>Box photos</legend>
+    <p class="field__hint">Add a photo of each side of the box. JPEG, PNG or WebP, up to <%= Title::MAX_FILE_SIZE / 1.megabyte %> MB each.</p>
+
+    <div class="face-grid">
+      <% Title::FACES.each do |face| %>
+        <%= render Admin::FaceUploadComponent.new(form: form, face: face) %>
+      <% end %>
+    </div>
+  </fieldset>
+
+  <fieldset class="title-form__dimensions">
+    <legend>Box size (optional)</legend>
+    <p class="field__hint">Measured in millimetres. Leave blank and the 3D box will take its shape from the front and side photos.</p>
+
+    <div class="field">
+      <%= form.label :box_width_mm, "Width (mm)" %>
+      <%= form.number_field :box_width_mm, min: 10, max: 1000 %>
+    </div>
+    <div class="field">
+      <%= form.label :box_height_mm, "Height (mm)" %>
+      <%= form.number_field :box_height_mm, min: 10, max: 1000 %>
+    </div>
+    <div class="field">
+      <%= form.label :box_depth_mm, "Depth (mm)" %>
+      <%= form.number_field :box_depth_mm, min: 10, max: 1000 %>
+    </div>
+  </fieldset>
+
+  <%= form.submit %>
+<% end %>
