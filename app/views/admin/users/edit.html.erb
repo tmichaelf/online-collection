@@ -1,0 +1,38 @@
+<% content_for :title, "Edit #{@user.username}" %>
+
+<h1><%= @user.username %></h1>
+
+<%= form_with model: [ :admin, @user ], class: "form" do |form| %>
+  <% if @user.errors.any? %>
+    <ul class="form__errors" role="alert">
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  <% end %>
+
+  <%= form.label :username %>
+  <%= form.text_field :username, required: true %>
+
+  <%= form.label :email_address %>
+  <%= form.email_field :email_address, required: true %>
+
+  <label class="checkbox">
+    <%= form.check_box :admin, disabled: @user == Current.user %>
+    Admin (can manage titles, photos and users)
+  </label>
+  <% if @user == Current.user %>
+    <p class="field__hint">You can't remove your own admin access.</p>
+  <% end %>
+
+  <%= form.submit "Save" %>
+<% end %>
+
+<% unless @user == Current.user %>
+  <section class="danger-zone">
+    <h2>Delete account</h2>
+    <p>This deletes <%= @user.username %>'s account and their collection of <%= pluralize @user.collection_items.count, "title" %>. Titles stay in the archive.</p>
+    <%= button_to "Delete #{@user.username}", admin_user_path(@user), method: :delete, class: "button button--danger",
+          form: { data: { turbo_confirm: "Delete #{@user.username} and their collection?" } } %>
+  </section>
+<% end %>

@@ -5,6 +5,9 @@ demo = User.find_or_create_by!(username: Rails.configuration.x.demo_collector) d
   user.email_address = ENV.fetch("DEMO_EMAIL", "demo@example.com")
   user.password = ENV.fetch("DEMO_PASSWORD") { SecureRandom.base58(16) }
   user.admin = true
+
+  puts "Created the admin account #{user.username} (#{user.email_address})."
+  puts "Sign in with the password #{user.password}" unless ENV["DEMO_PASSWORD"]
 end
 
 [

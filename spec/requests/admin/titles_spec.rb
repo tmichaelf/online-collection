@@ -21,6 +21,7 @@ RSpec.describe "Admin titles", type: :request do
       get admin_titles_path
       expect(response.body).to include("Wing Commander")
       expect(response.body).to include("1 of 6")
+      expect(response.body).to include(%(action="/admin/titles/#{Title.last.to_param}"))
     end
 
     it "creates a title with box photos" do
